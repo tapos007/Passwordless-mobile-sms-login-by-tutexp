@@ -7,3 +7,172 @@
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2 / 1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
     .iti-flag {background-image: url("img/flags@2x.png");}
 }
+
+.tutexpForm .form {
+    background: rgba(19, 35, 47, 0.9);
+    padding: 40px;
+    max-width: 600px;
+    margin: 40px auto;
+    border-radius: 4px;
+    box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
+}
+
+.tutexpForm .tab-group {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 40px 0;
+}
+.tutexpForm .tab-group:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.tutexpForm .tab-group li a {
+    display: block;
+    text-decoration: none;
+    padding: 15px;
+    background: rgba(160, 179, 176, 0.25);
+    color: #FFFFFF;
+    font-size: 20px;
+    float: left;
+    width: 50%;
+    text-align: center;
+    cursor: pointer;
+    -webkit-transition: .5s ease;
+    transition: .5s ease;
+}
+.tutexpForm .tab-group li a:hover {
+    background: #179b77;
+    color: #ffffff;
+}
+.tutexpForm .tab-group .active a {
+    background: #1ab188;
+    color: #ffffff;
+}
+
+.tutexpForm .tab-content > div:last-child {
+    display: none;
+}
+
+.tutexpForm h1 {
+    text-align: center;
+    color: #ffffff;
+    font-weight: 300;
+    margin: 0 0 40px;
+}
+
+.tutexpForm label {
+    position: absolute;
+    -webkit-transform: translateY(13px);
+    transform: translateY(13px);
+    left: 25px;
+    color: rgba(255, 255, 255, 0.5);
+    -webkit-transition: all 0.25s ease;
+    transition: all 0.25s ease;
+    -webkit-backface-visibility: hidden;
+    pointer-events: none;
+    font-size: 22px;
+}
+.tutexpForm label .req {
+    margin: 2px;
+    color: #FFFFFF;
+}
+
+.tutexpForm label.active {
+    -webkit-transform: translateY(60px);
+    transform: translateY(60px);
+    left: 2px;
+    font-size: 14px;
+}
+.tutexpForm label.active .req {
+    opacity: 0;
+}
+
+.tutexpForm label .highlight {
+    color: #ffffff;
+}
+
+.tutexpForm input, .tutexpForm textarea {
+    font-size: 22px;
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 5px 10px;
+    background: none !important;
+    background-image: none;
+    border: 1px solid #a0b3b0;
+    color: #ffffff !important;
+    border-radius: 0;
+    -webkit-transition: border-color .25s ease, box-shadow .25s ease;
+    transition: border-color .25s ease, box-shadow .25s ease;
+}
+.tutexpForm input:focus, .tutexpForm textarea:focus {
+    outline: 0;
+    border-color: #1ab188 !important;
+
+}
+
+.tutexpForm textarea {
+    border: 2px solid #a0b3b0;
+    resize: vertical;
+}
+
+.tutexpForm .field-wrap {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+.tutexpForm .top-row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.tutexpForm .top-row > div {
+    float: left;
+    width: 100%;
+    margin-right: 4%;
+}
+.tutexpForm .top-row > div:last-child {
+    margin: 0;
+}
+
+.tutexpForm .button {
+    border: 0;
+    outline: none;
+    border-radius: 0;
+    padding: 15px 0;
+    font-size: 2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    background: #1ab188;
+    color: #ffffff;
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    -webkit-appearance: none;
+}
+.tutexpForm .button:hover, .button:focus {
+    background: #179b77;
+}
+
+.tutexpForm .button-block {
+    display: block;
+    width: 100%;
+}
+
+.tutexpForm .forgot {
+    margin-top: -20px;
+    text-align: right;
+}
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: white;
+}
+::-moz-placeholder { /* Firefox 19+ */
+    color: white;
+}
+:-ms-input-placeholder { /* IE 10+ */
+    color: white;
+}
+:-moz-placeholder { /* Firefox 18- */
+    color: white;
+}
