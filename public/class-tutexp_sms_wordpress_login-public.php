@@ -74,6 +74,7 @@ class Tutexp_sms_wordpress_login_Public {
 		 */
 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/tutexp_sms_wordpress_login-public.css', array(), $this->version, 'all' );
+		wp_enqueue_style( "intlTelInput", plugin_dir_url( __FILE__ ) . 'css/intlTelInput.css', array(), $this->version, 'all' );
 
 	}
 
@@ -95,8 +96,12 @@ class Tutexp_sms_wordpress_login_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/tutexp_sms_wordpress_login-public.js', array( 'jquery' ), $this->version, false );
+        wp_enqueue_script( 'intlTelInputJS', plugin_dir_url( __FILE__ ) . 'js/intlTelInput.min.js', array( 'jquery' ), $this->version, true );
+        wp_enqueue_script( 'intlTelInputJSutils', plugin_dir_url( __FILE__ ) . 'js/utils.js', array( 'jquery','intlTelInputJS' ), $this->version, true );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/tutexp_sms_wordpress_login-public.js', array( 'jquery','intlTelInputJS' ), $this->version, true );
+        wp_localize_script($this->plugin_name, 'tutexp_ajax', array(
+            'ajaxurl' => admin_url( 'admin-ajax.php' ),
+        ));
 
 	}
 
