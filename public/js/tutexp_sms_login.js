@@ -18,7 +18,7 @@ function randomString(length) {
     var mobileNumber = null;
     var countryCode = null;
     $('.smsLogin').on('click', function (e) {
-
+        alert(tutexp_ajax1.admin_url);
         var isValid = $("#mobile-number").intlTelInput("isValidNumber");
         if (!isValid) {
             e.preventDefault();
@@ -63,19 +63,23 @@ function randomString(length) {
             var code = response.code;
             var csrf = response.state;
             jQuery.ajax({
-                url : tutexp_ajax.ajax_url,
+                url : tutexp_ajax1.ajaxurl,
                 type : 'post',
                 data : {
-                    'action' : 'tutexpFacebookDataFetch',
+                    'action' : 'tutexp_facebook',
                     'code' : code,
                     'csrf' : csrf,
-                    'countryCode':countryCode,
-                    'mobileNumber':mobileNumber
+                    'tutmobileNumber':countryCode+mobileNumber,
                 },
                 success : function( response ) {
                     console.log(response);
-                    var  str = response.substring(0, response.length - 1);
-                    window.location = str;
+
+                        document.location.href = tutexp_ajax1.redirecturl;
+
+                     //
+
+
+
                 }
             });
 
@@ -91,7 +95,7 @@ function randomString(length) {
 
     // phone form submission handler
     function smsLogin(countryCode,phoneNumber) {
-        alert(countryCode,phoneNumber);
+
         // debugger;
         AccountKit.login(
             'PHONE',
@@ -100,14 +104,13 @@ function randomString(length) {
         );
     }
 
-
-    // email form submission handler
-    function emailLogin() {
-        var emailAddress = document.getElementById("email").value;
+    $('.emailLogin').on('click', function (e) {
+        var email = $("#email").val();
         AccountKit.login(
             'EMAIL',
-            {emailAddress: emailAddress},
+            {emailAddress: email},
             loginCallback
         );
-    }
+    });
+
 })(jQuery);

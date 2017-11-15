@@ -111,7 +111,8 @@ class Tutexp_sms_wordpress_login_Public {
         wp_localize_script('tutexp_ajax_login', 'tutexp_ajax1', array(
             'ajaxurl' => admin_url( 'admin-ajax.php' ),
             'admin_url'=>admin_url(),
-            'member_url'=>home_url( 'tutexpsms-member-account' )
+            'member_url'=>home_url( 'tutexpsms-member-account' ),
+            'redirecturl' => home_url(),
         ));
 
 

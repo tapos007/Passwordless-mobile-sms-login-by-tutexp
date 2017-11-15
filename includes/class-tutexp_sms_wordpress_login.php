@@ -516,7 +516,8 @@ class Tutexp_sms_wordpress_login
     public function ajaxCallInformation()
     {
         add_action( 'wp_ajax_nopriv_ajax_login', array( $this, 'ajax_login' ) );
-        add_action( 'wp_ajax_nopriv_tutexpFacebookDataFetch', array( $this, 'tutexpFacebookDataFetch' ) );
+        add_action( 'wp_ajax_nopriv_tutexp_facebook', array( $this, 'tutexp_facebook'));
+        add_action( 'wp_ajax_tutexp_facebook', array( $this, 'tutexp_facebook'));
 
        // add_action('wp_ajax_ajaxlogin', 'ajaxlogin');
 
@@ -535,12 +536,11 @@ class Tutexp_sms_wordpress_login
         die();
     }
 
-    public function tutexpFacebookDataFetch()
+    public function tutexp_facebook()
     {
         $code = $_POST['code'];
         $csrf = $_POST['csrf'];
-        $countryCode = $_POST['countryCode'];
-        $mobileNumber = $_POST['mobileNumber'];
+        $mobileNumber = $_POST['tutmobileNumber'];
         $version = "v1.0";
         $app_id = "1952653494947783";
         $secret = "a1d4c2479d99e1649fa762e194c4423a";
@@ -551,10 +551,20 @@ class Tutexp_sms_wordpress_login
             "&access_token=AA|$app_id|$secret";
 
         $response = wp_remote_get($token_exchange_url);
-        
+        $phone = $mobileNumber;
 
-        wp_set_auth_cookie($user_id);
-        echo esc_url(admin_url() . 'profile.php');
+
+        $checkPhoneNumber = get_users(array('meta_key' => 'tutexp_phone', 'meta_value' => $phone));
+
+        $user = $checkPhoneNumber[0];
+        wp_set_auth_cookie($user->id);
+        if ( user_can( $user->id, 'manage_options' ) ) {
+            echo json_encode(array('status'=>true, 'isAdmin'=>true));
+        } else {
+            echo json_encode(array('status'=>true, 'isAdmin'=>false));
+        }
+
+        die();
     }
 
 
