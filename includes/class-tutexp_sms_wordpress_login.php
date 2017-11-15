@@ -85,6 +85,8 @@ class Tutexp_sms_wordpress_login
         $this->ajaxCallInformation();
 
 
+
+
     }
 
     /**
@@ -566,6 +568,13 @@ class Tutexp_sms_wordpress_login
 
         die();
     }
+
+
+
+
+
+
+
 
 
 }

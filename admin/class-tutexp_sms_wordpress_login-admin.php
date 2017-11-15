@@ -51,6 +51,7 @@ class Tutexp_sms_wordpress_login_Admin {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
+		$this->addUserPhoneColumn();
 
 	}
 
@@ -99,5 +100,50 @@ class Tutexp_sms_wordpress_login_Admin {
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/tutexp_sms_wordpress_login-admin.js', array( 'jquery' ), $this->version, false );
 
 	}
+
+    public function addUserPhoneColumn()
+    {
+
+        add_action( 'show_user_profile', array($this,'custom_user_profile_fields') );
+        add_action( 'edit_user_profile', array($this,'custom_user_profile_fields') );
+        add_action( "user_new_form", array($this,"custom_user_profile_fields" ));
+
+        add_action('user_register', 'save_custom_user_profile_fields');
+        add_action('profile_update', 'save_custom_user_profile_fields');
+
+    }
+
+    function custom_user_profile_fields($user){
+        if(is_object($user))
+            $phone = esc_attr( get_the_author_meta( 'tutexp_phone', $user->ID ) );
+        else
+            $phone = null;
+        ?>
+        <h3>Extra profile information</h3>
+        <table class="form-table">
+            <tr>
+                <th><label for="company">Mobile Number</label></th>
+                <td>
+                    <input type="text" class="regular-text" name="phone" value="<?php echo $phone; ?>" id="phone" /><br />
+                    <span class="description">Mobile Number Needed?</span>
+                </td>
+            </tr>
+        </table>
+        <?php
+    }
+    function save_custom_user_profile_fields($user_id){
+        # again do this only if you can
+        if(!current_user_can('manage_options'))
+            return false;
+
+        # save my custom field
+        update_user_meta($user_id, 'tutexp_phone', $_POST['phone']);
+    }
+
+
+    
+
+
+
 
 }
