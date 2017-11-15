@@ -98,10 +98,24 @@ class Tutexp_sms_wordpress_login_Public {
 		 */
         wp_enqueue_script( 'intlTelInputJS', plugin_dir_url( __FILE__ ) . 'js/intlTelInput.min.js', array( 'jquery' ), $this->version, true );
         wp_enqueue_script( 'intlTelInputJSutils', plugin_dir_url( __FILE__ ) . 'js/utils.js', array( 'jquery','intlTelInputJS' ), $this->version, true );
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/tutexp_sms_wordpress_login-public.js', array( 'jquery','intlTelInputJS' ), $this->version, true );
+        wp_enqueue_script( 'fbIncludedScript', 'https://sdk.accountkit.com/en_US/sdk.js', array( 'jquery' ), $this->version, true );
+        wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/tutexp_sms_wordpress_login-public.js', array( 'jquery','intlTelInputJS' ), $this->version, true );
         wp_localize_script($this->plugin_name, 'tutexp_ajax', array(
             'ajaxurl' => admin_url( 'admin-ajax.php' ),
+            'admin_url'=>admin_url(),
+            'member_url'=>home_url( 'tutexpsms-member-account' )
         ));
+
+
+        wp_enqueue_script( 'tutexp_ajax_login', plugin_dir_url( __FILE__ ) . 'js/tutexp_sms_login.js', array( 'jquery','intlTelInputJS' ), $this->version, true );
+        wp_localize_script('tutexp_ajax_login', 'tutexp_ajax1', array(
+            'ajaxurl' => admin_url( 'admin-ajax.php' ),
+            'admin_url'=>admin_url(),
+            'member_url'=>home_url( 'tutexpsms-member-account' )
+        ));
+
+
+
 
 	}
 

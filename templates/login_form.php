@@ -30,6 +30,7 @@
                             <label for="mobile_number"><?php _e('Mobile Number', 'personalize-login'); ?></label>
                             <input style="color: white !important;background-color: green !important; " type="tel" name="mobile_number" id="mobile-number">
                         </p>
+                        <?php wp_nonce_field( 'ajax-login-nonce', 'security' ); ?>
                         <button class="button button-block smsLogin"/>
                         Send</button>
                     </div>

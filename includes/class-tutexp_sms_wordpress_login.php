@@ -82,6 +82,7 @@ class Tutexp_sms_wordpress_login
         $this->define_public_hooks();
         $this->loadAddShortCode();
         $this->redirectLoginRegistration();
+        $this->ajaxCallInformation();
 
 
     }
@@ -198,6 +199,7 @@ class Tutexp_sms_wordpress_login
     public function run()
     {
         $this->loader->run();
+
     }
 
     /**
@@ -509,6 +511,50 @@ class Tutexp_sms_wordpress_login
             wp_redirect( $redirect_url );
             exit;
         }
+    }
+
+    public function ajaxCallInformation()
+    {
+        add_action( 'wp_ajax_nopriv_ajax_login', array( $this, 'ajax_login' ) );
+        add_action( 'wp_ajax_nopriv_tutexpFacebookDataFetch', array( $this, 'tutexpFacebookDataFetch' ) );
+
+       // add_action('wp_ajax_ajaxlogin', 'ajaxlogin');
+
+    }
+
+    function ajax_login(){
+
+        $phone = $_POST['mobile_number'];
+        $checkPhoneNumber = get_users(array('meta_key' => 'tutexp_phone', 'meta_value' => $phone));
+        if(count($checkPhoneNumber)==0){
+            echo json_encode(array('status'=>false, 'message'=>__('Mobile number not found our system')));
+        }else{
+            echo json_encode(array('status'=>true, 'message'=>__('enter next area')));
+        }
+
+        die();
+    }
+
+    public function tutexpFacebookDataFetch()
+    {
+        $code = $_POST['code'];
+        $csrf = $_POST['csrf'];
+        $countryCode = $_POST['countryCode'];
+        $mobileNumber = $_POST['mobileNumber'];
+        $version = "v1.0";
+        $app_id = "1952653494947783";
+        $secret = "a1d4c2479d99e1649fa762e194c4423a";
+
+        $token_exchange_url = 'https://graph.accountkit.com/' . $version . '/access_token?' .
+            'grant_type=authorization_code' .
+            '&code=' . $code .
+            "&access_token=AA|$app_id|$secret";
+
+        $response = wp_remote_get($token_exchange_url);
+        
+
+        wp_set_auth_cookie($user_id);
+        echo esc_url(admin_url() . 'profile.php');
     }
 
 
