@@ -19,6 +19,7 @@ function randomString(length) {
 
     var mobileNumber = null;
     var countryCode = null;
+    var internationFormatPhone = null;
     $('.smsLogin').on('click', function (e) {
 
         var isValid = $("#mobile-number").intlTelInput("isValidNumber");
@@ -28,6 +29,7 @@ function randomString(length) {
         } else {
 
             var intlNumber = $("#mobile-number").intlTelInput("getNumber");
+            internationFormatPhone = intlNumber;
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
@@ -71,7 +73,7 @@ function randomString(length) {
                     'action' : 'tutexp_facebook',
                     'code' : code,
                     'csrf' : csrf,
-                    'tutmobileNumber':countryCode+mobileNumber,
+                    'tutmobileNumber':internationFormatPhone,
                 },
                 success : function( response ) {
                     console.log(response);
