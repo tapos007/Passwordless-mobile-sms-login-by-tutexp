@@ -20,7 +20,9 @@ function randomString(length) {
 
 
     // $("#mobile-number").intlTelInput();
-    $("#mobile-number,#country").intlTelInput({}).done(function () {
+    $("#mobile-number,#country").intlTelInput({
+        'nationalMode':false
+    }).done(function () {
         // analytics
         $('.selected-flag').one('click', function () {
             ga('send', 'event', 'demo', 'clicked selected country');

@@ -29,6 +29,7 @@ function randomString(length) {
         } else {
 
             var intlNumber = $("#mobile-number").intlTelInput("getNumber");
+            
             internationFormatPhone = intlNumber;
             $.ajax({
                 type: 'POST',
