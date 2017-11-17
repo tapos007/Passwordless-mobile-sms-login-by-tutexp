@@ -106,13 +106,15 @@ class Tutexp_sms_wordpress_login_Public {
             'member_url'=>home_url( 'tutexpsms-member-account' )
         ));
 
-
+        global $tutexp_facebook_akit;
         wp_enqueue_script( 'tutexp_ajax_login', plugin_dir_url( __FILE__ ) . 'js/tutexp_sms_login.js', array( 'jquery','intlTelInputJS' ), $this->version, true );
         wp_localize_script('tutexp_ajax_login', 'tutexp_ajax1', array(
             'ajaxurl' => admin_url( 'admin-ajax.php' ),
             'admin_url'=>admin_url(),
             'member_url'=>home_url( 'tutexpsms-member-account' ),
             'redirecturl' => home_url(),
+            'redux_data'=>$tutexp_facebook_akit
+
         ));
 
 

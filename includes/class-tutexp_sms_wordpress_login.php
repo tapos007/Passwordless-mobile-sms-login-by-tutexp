@@ -87,6 +87,7 @@ class Tutexp_sms_wordpress_login
 
 
 
+
     }
 
     /**
@@ -137,6 +138,14 @@ class Tutexp_sms_wordpress_login
          */
         require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-tutexp_sms_wordpress_login-shortcode.php';
 
+
+        if ( !class_exists( 'ReduxFramework' ) && file_exists( plugin_dir_path(dirname(__FILE__)) . 'ReduxFramework/ReduxCore/framework.php' ) ) {
+            require_once( plugin_dir_path(dirname(__FILE__)) . 'ReduxFramework/ReduxCore/framework.php' );
+        }
+        if ( !isset( $redux_demo ) && file_exists( plugin_dir_path(dirname(__FILE__)) . 'includes/redux_config.php' ) ) {
+            // echo "hell";
+            require_once( plugin_dir_path(dirname(__FILE__))  . '/includes/redux_config.php' );
+        }
         $this->loader = new Tutexp_sms_wordpress_login_Loader();
 
     }
@@ -540,12 +549,14 @@ class Tutexp_sms_wordpress_login
 
     public function tutexp_facebook()
     {
+        global $tutexp_facebook_akit;
+
         $code = $_POST['code'];
         $csrf = $_POST['csrf'];
         $mobileNumber = $_POST['tutmobileNumber'];
-        $version = "v1.0";
-        $app_id = "1952653494947783";
-        $secret = "a1d4c2479d99e1649fa762e194c4423a";
+        $version = $tutexp_facebook_akit['tutexp-facebook-appVersion'];
+        $app_id = $tutexp_facebook_akit['tutexp-facebook-appId'];
+        $secret = $tutexp_facebook_akit['tutexp-facebook-appSecret'];
 
         $token_exchange_url = 'https://graph.accountkit.com/' . $version . '/access_token?' .
             'grant_type=authorization_code' .
@@ -553,11 +564,12 @@ class Tutexp_sms_wordpress_login
             "&access_token=AA|$app_id|$secret";
 
         $response = wp_remote_get($token_exchange_url);
+
         $phone = $mobileNumber;
 
 
         $checkPhoneNumber = get_users(array('meta_key' => 'tutexp_phone', 'meta_value' => $phone));
-
+       // echo json_encode(array('status'=>true, 'isAdmin'=>$checkPhoneNumber));
         $user = $checkPhoneNumber[0];
         wp_set_auth_cookie($user->id);
         if ( user_can( $user->id, 'manage_options' ) ) {

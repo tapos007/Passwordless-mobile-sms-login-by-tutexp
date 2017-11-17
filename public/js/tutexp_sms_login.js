@@ -1,9 +1,11 @@
+var fbConfig = tutexp_ajax1.redux_data;
+// console.log(fbConfig);
 AccountKit_OnInteractive = function(){
     AccountKit.init(
         {
-            appId:"1952653494947783",
+            appId:fbConfig['tutexp-facebook-appId'],
             state:randomString(20),
-            version:"v1.0",
+            version:fbConfig['tutexp-facebook-appVersion'],
             fbAppEventsEnabled:true,
             redirect:"http://my-wp.dev/wp-admin/admin-ajax.php?action=tutexpFacebookDataFetch1"
         }
@@ -18,7 +20,7 @@ function randomString(length) {
     var mobileNumber = null;
     var countryCode = null;
     $('.smsLogin').on('click', function (e) {
-        alert(tutexp_ajax1.admin_url);
+
         var isValid = $("#mobile-number").intlTelInput("isValidNumber");
         if (!isValid) {
             e.preventDefault();

@@ -1,4 +1,8 @@
 <div class="login-form-container">
+    <?php
+
+
+    ?>
     <?php if ($attributes['show_title']) : ?>
         <h2><?php _e('Sign In', 'personalize-login'); ?></h2>
     <?php endif; ?>

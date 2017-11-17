@@ -70,13 +70,7 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-tutexp_sms_wordpress_login
  */
 
 
-if ( !class_exists( 'ReduxFramework' ) && file_exists( dirname( __FILE__ ) . '/ReduxFramework/ReduxCore/framework.php' ) ) {
-    require_once( dirname( __FILE__ ) . '/ReduxFramework/ReduxCore/framework.php' );
-}
-if ( !isset( $redux_demo ) && file_exists( dirname( __FILE__ ) . '/ReduxFramework/sample/sample-config.php' ) ) {
-    echo "hell";
-    require_once( dirname( __FILE__ ) . '/ReduxFramework/sample/sample-config.php' );
-}
+
 
 
 function run_tutexp_sms_wordpress_login() {
